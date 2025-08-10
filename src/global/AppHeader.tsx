@@ -13,10 +13,12 @@ const AppHeader = () => {
   const isSolution = location.pathname.startsWith("/solution")
   const { currentConversation } = isChat ? useChat() : !isSolution ? useCompletion() : useSolution()
 
+  const title = currentConversation?.title || ""
+
   return (
     <header className="flex w-full bg-background border-b px-4 py-2 items-center min-h-14 gap-4">
       {!open && <SidebarButtonTrigger />}
-      <h1 className="font-semibold">{currentConversation?.title}</h1>
+      <h1 className="font-semibold">{title.length > 30 ? `${title.slice(0, 30)}...` : title}</h1>
     </header>
   );
 };
