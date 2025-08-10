@@ -1,4 +1,4 @@
-
+import React from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -6,7 +6,7 @@ import {
   SidebarMenu,
   SidebarFooter,
 } from "@/components/ui/sidebar"
-import { 
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogContent,
@@ -23,6 +23,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { groupConversations } from "@/utils";
 import SidebarConversationItem from "@/components/custom/SidbarConversationItem";
 import { useCompletion } from "@/context/CompletionContext";
+import { useSolution } from "@/context/SolutionContext";
 import { Trash2Icon, MessageSquarePlus, Sparkles, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -34,14 +35,15 @@ const AppSidebar = () => {
   const navigate = useNavigate()
 
   const isChat = location.pathname.startsWith("/chat")
-  const rootPath = isChat ? "chat" : "completion"
+  const isSolution = location.pathname.startsWith("/solution")
+  const rootPath = isChat ? "chat" : !isSolution ? "completion" : "solution"
 
   const {
-    conversations, 
-    clearConversations, 
+    conversations,
+    clearConversations,
     deleteConversation,
     getNewConversation,
-  } = isChat ? useChat() : useCompletion()
+  } = isChat ? useChat() : !isSolution ? useCompletion() : useSolution()
 
   const grouped = groupConversations(conversations)
 
@@ -54,9 +56,9 @@ const AppSidebar = () => {
     const newId = getNewConversation()
     navigate(`/${rootPath}/${newId}`)
   }
-  
+
   return (
-   <Sidebar className="bg-background" variant="sidebar" collapsible="offcanvas">
+    <Sidebar className="bg-background" variant="sidebar" collapsible="offcanvas">
       <SidebarHeader className="px-4 py-3 mb-2">
         <div className="flex items-center justify-between">
           <span className="flex gap-1" >
@@ -69,11 +71,21 @@ const AppSidebar = () => {
       <SidebarContent>
         <div className="p-2">
           <Button
+            className="w-full bg-orange-500 hover:bg-orange-700 text-white"
+            onClick={() => navigate("/solution")}
+          >
+            <MessageSquare />
+            Go to Solution
+          </Button>
+        </div>
+
+        <div className="p-2">
+          <Button
             className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
             onClick={isChat ? () => navigate("/completion") : () => navigate("/chat")}
           >
-            {isChat ? <Sparkles className="h-4 w-4" /> : <MessageSquare /> } 
-            Go to {isChat ? "Completion": "Chat"}
+            {isChat ? <Sparkles className="h-4 w-4" /> : <MessageSquare />}
+            Go to {isChat ? "Completion" : "Chat"}
           </Button>
         </div>
 
@@ -83,27 +95,27 @@ const AppSidebar = () => {
             onClick={handleNewConverstion}
           >
             <MessageSquarePlus className="h-4 w-4" />
-            New {isChat ? "Chat" : "Completion"} 
+            New {isChat ? "Chat" : "Completion"}
           </Button>
         </div>
         <ScrollArea className="h-[calc(100vh-13rem)]">
           <SidebarMenu className="p-2">
-            {Object.entries(grouped).map(([label,items]) => items.length > 0 && (
-                <div key={label} className="mb-2">
-                  <div className="px-4 py-2 text-sm font-medium text-gray-500">{label}</div> 
-                    {items.map((c:Conversation) => {
-                      return (
-                        <SidebarConversationItem 
-                          key={c.id}
-                          c={c}
-                          root={rootPath}
-                          isActive={location.pathname === `/${rootPath}/${c.id}`}
-                          onDelete={deleteConversation}
-                        />
-                    )
-                  })}
-                </div>
-              )
+            {Object.entries(grouped).map(([label, items]) => items.length > 0 && (
+              <div key={label} className="mb-2">
+                <div className="px-4 py-2 text-sm font-medium text-gray-500">{label}</div>
+                {items.map((c: Conversation) => {
+                  return (
+                    <SidebarConversationItem
+                      key={c.id}
+                      c={c}
+                      root={rootPath}
+                      isActive={location.pathname === `/${rootPath}/${c.id}`}
+                      onDelete={deleteConversation}
+                    />
+                  )
+                })}
+              </div>
+            )
             )}
           </SidebarMenu>
         </ScrollArea>
@@ -111,8 +123,8 @@ const AppSidebar = () => {
       <SidebarFooter className="border-t p-2">
         <AlertDialog>
           <AlertDialogTrigger >
-            <div 
-            role="button"
+            <div
+              role="button"
               className="w-full flex justify-center items-center gap-2 cursor-pointer border-1 rounded-md p-1.5 capitalize text-orange-500 hover:text-orange-600 hover:bg-orange-50"
             >
               <Trash2Icon className="!h-4 !w-4" />
@@ -128,8 +140,8 @@ const AppSidebar = () => {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction 
-                className="bg-orange-500" 
+              <AlertDialogAction
+                className="bg-orange-500"
                 onClick={() => handleClearConveration()}
               >Continue</AlertDialogAction>
             </AlertDialogFooter>

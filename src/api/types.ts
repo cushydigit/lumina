@@ -1,7 +1,7 @@
 
 export enum ApiEndpoints {
   LIST_LOCAL_MODELS = "/api/tags",
-  LIST_RUNNING_MODLES =  "/api/ps",
+  LIST_RUNNING_MODLES = "/api/ps",
   COMPLETION = "/api/generate",
   CHAT = "/api/chat",
 }
@@ -182,4 +182,12 @@ export interface Conversation {
   system?: string;
   temperature?: number;
   seed?: string;
+}
+
+
+export interface SolutionType {
+  id: number;
+  title: string;
+  content: string;
+  created_at: number;
 }
