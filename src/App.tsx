@@ -10,10 +10,10 @@ function App() {
   return (
     <Routes>
       <Route element={<AppLayout />} >
-        <Route index path="/chat" element={<Chat />} />
-        <Route path="/chat/:id" element={<Chat />} />
-        <Route path="/completion" element={<Completion />} />
-        <Route path="/completion/:id" element={<Completion />} />
+        {/* <Route index path="/chat" element={<Chat />} /> */}
+        {/* <Route path="/chat/:id" element={<Chat />} /> */}
+        {/* <Route path="/completion" element={<Completion />} /> */}
+        {/* <Route path="/completion/:id" element={<Completion />} /> */}
         <Route path="/solution" element={<Solution />} />
         <Route path="/solution/:id" element={<Solution />} />
       </Route>

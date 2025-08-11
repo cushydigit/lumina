@@ -69,35 +69,35 @@ const AppSidebar = () => {
         </div>
       </SidebarHeader>
       <SidebarContent>
-        <div className="p-2">
-          <Button
-            className="w-full bg-orange-500 hover:bg-orange-700 text-white"
-            onClick={() => navigate("/solution")}
-          >
-            <MessageSquare />
-            Go to Solution
-          </Button>
-        </div>
-
-        <div className="p-2">
-          <Button
-            className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
-            onClick={isChat ? () => navigate("/completion") : () => navigate("/chat")}
-          >
-            {isChat ? <Sparkles className="h-4 w-4" /> : <MessageSquare />}
-            Go to {isChat ? "Completion" : "Chat"}
-          </Button>
-        </div>
-
-        <div className="p-2">
-          <Button
-            className="w-full bg-teal-600 hover:bg-teal-700 text-white"
-            onClick={handleNewConverstion}
-          >
-            <MessageSquarePlus className="h-4 w-4" />
-            New {isChat ? "Chat" : "Completion"}
-          </Button>
-        </div>
+        {/* <div className="p-2"> */}
+        {/*   <Button */}
+        {/*     className="w-full bg-orange-500 hover:bg-orange-700 text-white" */}
+        {/*     onClick={() => navigate("/solution")} */}
+        {/*   > */}
+        {/*     <MessageSquare /> */}
+        {/*     Go to Solution */}
+        {/*   </Button> */}
+        {/* </div> */}
+        {/**/}
+        {/* <div className="p-2"> */}
+        {/*   <Button */}
+        {/*     className="w-full bg-cyan-600 hover:bg-cyan-700 text-white" */}
+        {/*     onClick={isChat ? () => navigate("/completion") : () => navigate("/chat")} */}
+        {/*   > */}
+        {/*     {isChat ? <Sparkles className="h-4 w-4" /> : <MessageSquare />} */}
+        {/*     Go to {isChat ? "Completion" : "Chat"} */}
+        {/*   </Button> */}
+        {/* </div> */}
+        {/**/}
+        {/* <div className="p-2"> */}
+        {/*   <Button */}
+        {/*     className="w-full bg-teal-600 hover:bg-teal-700 text-white" */}
+        {/*     onClick={handleNewConverstion} */}
+        {/*   > */}
+        {/*     <MessageSquarePlus className="h-4 w-4" /> */}
+        {/*     New {isChat ? "Chat" : "Completion"} */}
+        {/*   </Button> */}
+        {/* </div> */}
         <ScrollArea className="h-[calc(100vh-13rem)]">
           <SidebarMenu className="p-2">
             {Object.entries(grouped).map(([label, items]) => items.length > 0 && (

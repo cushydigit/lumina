@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 const NotFoundPage = () => {
   const naviage = useNavigate()
   React.useEffect(() => {
-    naviage("/chat")
-  },[])
+    naviage("/solution")
+  }, [])
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-background to-muted p-4 text-center">
       <div className="max-w-md space-y-8">
@@ -30,14 +30,14 @@ const NotFoundPage = () => {
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Button asChild size="lg">
             <span>
-            <Home className="mr-2 h-4 w-4" />
-            <span>Back to Home</span>
+              <Home className="mr-2 h-4 w-4" />
+              <span>Back to Home</span>
             </span>
           </Button>
           <Button asChild variant="outline" size="lg">
-          <span>
-            <Bot className="mr-2 h-4 w-4" />
-            <span>Start New Chat</span>
+            <span>
+              <Bot className="mr-2 h-4 w-4" />
+              <span>Start New Chat</span>
             </span>
           </Button>
         </div>
